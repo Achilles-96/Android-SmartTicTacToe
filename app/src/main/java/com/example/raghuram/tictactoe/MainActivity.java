@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Random;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -32,6 +34,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void startgame(View view){
+        int[] x=new int[2];
+        int[] y=new int[2];
+        x[0]=0;x[1]=2;y[0]=0;y[1]=2;
+        Random random=new Random();
+        int xval=x[random.nextInt(2)];
+        int yval=y[random.nextInt(2)];
         for(int i=0;i<=2;i++)
             for(int j=0;j<=2;j++) {
                 game[i][j] = 0;
@@ -41,8 +49,8 @@ public class MainActivity extends ActionBarActivity {
         gamestate=1;
         int choice=Integer.parseInt(view.getTag().toString());
         if(choice==1) {
-            game[0][0] = 1;
-            ((Button)findViewById(map[0][0])).setText("O");
+            game[xval][yval] = 1;
+            ((Button)findViewById(map[xval][yval])).setText("O");
         }
     }
     public void func(View view){
@@ -240,54 +248,81 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private boolean blockfork(){
-        for(int i=0;i<=2;i++)
-            for(int j=0;j<=2;j++)
-                if(game[i][j]==0) {
-                    if(game[i][(j+1)%3]==0&&game[i][(j+2)%3]==1){
-                        game[i][j]=1;
-                        if(checkfork(i,(j+1)%3)) {move(i, j); return true;};
-                        game[i][j]=0;
+    private boolean blockfork() {
+        int unblocked;
+        int[][] fork = new int[5][5];
+        int count = 0;
+        for (int i = 0; i <= 2; i++)
+            for (int j = 0; j <= 2; j++)
+                fork[i][j] = 0;
+        for (int i = 0; i <= 2; i++)
+            for (int j = 0; j <= 2; j++)
+                if (game[i][j] == 0) {
+                    unblocked = 0;
+                    if ((game[i][(j + 1) % 3] == 0 && game[i][(j + 2) % 3] == 2) || (game[i][(j + 1) % 3] == 2 && game[i][(j + 2) % 3] == 0))
+                        unblocked++;
+                    if ((game[(i + 1) % 3][j] == 0 && game[(i + 2) % 3][j] == 2) || (game[(i + 1) % 3][j] == 2 && game[(i + 2) % 3][j] == 0))
+                        unblocked++;
+                    if (i == j)
+                        if ((game[(i + 1) % 3][(j + 1) % 3] == 0 && game[(i + 2) % 3][(j + 2) % 3] == 2) || (game[(i + 1) % 3][(j + 1) % 3] == 2 && game[(i + 2) % 3][(j + 2) % 3] == 0))
+                            unblocked++;
+                    if (i + j == 2)
+                        if ((game[(i - 1 + 3) % 3][(j + 1) % 3] == 0 && game[(i - 2 + 3) % 3][(j + 2) % 3] == 2) || (game[(i - 1 + 3) % 3][(j + 1) % 3] == 2 && game[(i - 2 + 3) % 3][(j + 2) % 3] == 0))
+                            unblocked++;
+                    if (unblocked >= 2) {
+                        fork[i][j] = 1;
+                        count++;
                     }
-                    if(game[i][(j+1)%3]==1&&game[i][(j+2)%3]==0){
-                        game[i][j]=1;
-                        if(checkfork(i,(j+2)%3)) {move(i, j); return true;};
-                        game[i][j]=0;
-                    }
-                    if(game[(i+1)%3][j]==0&&game[(i+2)%3][j]==1){
-                        game[i][j]=1;
-                        if(checkfork((i+1)%3,j)) {move(i, j); return true;};
-                        game[i][j]=0;
-                    }
+                }
+        if (count == 0)
+            return false;
 
-                    if(game[(i+1)%3][j]==1&&game[(i+2)%3][j]==0){
-                        game[i][j]=1;
-                        if(checkfork((i+2)%3,j)) {move(i, j); return true;};
-                        game[i][j]=0;
+        for (int i = 0; i <= 2; i++)
+            for (int j = 0; j <= 2; j++)
+                if (game[i][j] == 0) {
+                    if (game[i][(j + 1) % 3] == 0 && game[i][(j + 2) % 3] == 1)
+                        if (fork[i][(j + 1) % 3] == 0) {
+                            move(i, j);
+                            return true;
+                        }
+                    if (game[i][(j + 1) % 3] == 1 && game[i][(j + 2) % 3] == 0)
+                        if (fork[i][(j + 2) % 3] == 0) {
+                            move(i, j);
+                            return true;
+                        }
+                    if (game[(i + 1) % 3][j] == 0 && game[(i + 2) % 3][j] == 1)
+                        if (fork[(i + 1) % 3][j] == 0) {
+                            move(i, j);
+                            return true;
+                        }
+                    if (game[(i + 1) % 3][j] == 1 && game[(i + 2) % 3][j] == 0)
+                        if (fork[(i + 2) % 3][j] == 0) {
+                            move(i, j);
+                            return true;
+                        }
+                    if (i == j) {
+                        if (game[(i + 1) % 3][(j + 1) % 3] == 0 && game[(i + 2) % 3][(j + 2) % 3] == 1)
+                            if (fork[(i + 1) % 3][(j + 1) % 3] == 0) {
+                                move(i, j);
+                                return true;
+                            }
+                        if (game[(i + 1) % 3][(j + 1) % 3] == 1 && game[(i + 2) % 3][(j + 2) % 3] == 0)
+                            if (fork[(i + 2) % 3][(j + 2) % 3] == 0) {
+                                move(i, j);
+                                return true;
+                            }
                     }
-                    if(i==j){
-                        if(game[(i+1)%3][(j+1)%3]==0&&game[(i+2)%3][(j+2)%3]==1){
-                            game[i][j]=1;
-                            if(checkfork((i+1)%3,(j+1)%3)) {move(i, j); return true;};
-                            game[i][j]=0;
-                        }
-                        if(game[(i+1)%3][(j+1)%3]==1&&game[(i+2)%3][(j+2)%3]==0){
-                            game[i][j]=1;
-                            if(checkfork((i+2)%3,(j+2)%3)) {move(i, j); return true;};
-                            game[i][j]=0;
-                        }
-                    }
-                    if(i+j==2) {
-                        if(game[(i-1+3)%3][(j+1)%3]==0&&game[(i-2+3)%3][(j+2)%3]==1){
-                            game[i][j]=1;
-                            if(checkfork((i-1+3)%3,(j+1)%3)) {move(i, j); return true;};
-                            game[i][j]=0;
-                        }
-                        if(game[(i-1+3)%3][(j+1)%3]==1&&game[(i-2+3)%3][(j+2)%3]==0){
-                            game[i][j]=1;
-                            if(checkfork((i-2+3)%3,(j+2)%3)) {move(i, j); return true;};
-                            game[i][j]=0;
-                        }
+                    if (i + j == 2) {
+                        if (game[(i - 1 + 3) % 3][(j + 1) % 3] == 0 && game[(i - 2 + 3) % 3][(j + 2) % 3] == 1)
+                            if (fork[(i - 1 + 3) % 3][(j + 1) % 3] == 0) {
+                                move(i, j);
+                                return true;
+                            }
+                        if (game[(i - 1 + 3) % 3][(j + 1) % 3] == 1 && game[(i - 2 + 3) % 3][(j + 2) % 3] == 0)
+                            if (fork[(i - 2 + 3) % 3][(j + 2) % 3] == 0) {
+                                move(i, j);
+                                return true;
+                            }
                     }
                 }
         return false;

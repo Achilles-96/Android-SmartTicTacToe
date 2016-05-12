@@ -1123,4 +1123,34 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="I'll Start"
+            android:tag="2"
+            android:onClick="startgame"
+            android:layout_weight="0.5"
+            android:alpha="0.75"
+            android:background="@drawable/mybutton"
+            android:layout_margin="2dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="You Start"
+            android:tag="1"
+            android:onClick="startgame"
+            android:layout_weight="0.5"
+            android:alpha="0.75"
+            android:background="@drawable/mybutton"
+            android:layout_margin="2dp"
+            />
+    </LinearLayout>
+
 </LinearLayout>

@@ -165,58 +165,109 @@ public class UltimateGame extends ActionBarActivity implements View.OnClickListe
         }
         switch (id % 9) {
             case 1:
-                for (int i = 10, j = 28; i <= 18; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[2]!=-1 && markers[4]!=-1)
+                    openAll();
+                else
+                    for (int i = 10, j = 28; i <= 18; i++, j++) {
+                        if(markers[2]==-1)
+                            setOpen(i);
+                        if(markers[4]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 2:
-                for (int i = 1, j = 19; i <= 9; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[1]!=-1 && markers[3]!=-1)
+                    openAll();
+                else
+                    for (int i = 1, j = 19; i <= 9; i++, j++) {
+                        if(markers[1]==-1)
+                            setOpen(i);
+                        if(markers[3]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 3:
-                for (int i = 10, j = 46; i <= 18; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[2]!=-1 && markers[6]!=-1)
+                    openAll();
+                else
+                    for (int i = 10, j = 46; i <= 18; i++, j++) {
+                        if(markers[2]==-1)
+                            setOpen(i);
+                        if(markers[6]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 4:
-                for (int i = 1, j = 55; i <= 9; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[1]!=-1 && markers[7]!=-1)
+                    openAll();
+                else
+                    for (int i = 1, j = 55; i <= 9; i++, j++) {
+                        if(markers[1]==-1)
+                            setOpen(i);
+                        if(markers[7]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 5:
-                for (int i = 37; i <= 45; i++) {
-                    setOpen(i);
-                }
+                if(markers[5]!=-1)
+                    openAll();
+                else
+                    for (int i = 37; i <= 45; i++) {
+                        setOpen(i);
+                    }
                 break;
             case 6:
-                for (int i = 19, j = 73; i <= 27; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[3]!=-1 && markers[9]!=-1)
+                    openAll();
+                else
+                    for (int i = 19, j = 73; i <= 27; i++, j++) {
+                        if(markers[3]==-1)
+                            setOpen(i);
+                        if(markers[9]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 7:
-                for (int i = 28, j = 64; i <= 36; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[4]!=-1 && markers[8]!=-1)
+                    openAll();
+                else
+                    for (int i = 28, j = 64; i <= 36; i++, j++) {
+                        if(markers[4]==-1)
+                            setOpen(i);
+                        if(markers[8]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 8:
-                for (int i = 55, j = 73; i <= 63; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[7]!=-1 && markers[9]!=-1)
+                    openAll();
+                else
+                    for (int i = 55, j = 73; i <= 63; i++, j++) {
+                        if(markers[7]==-1)
+                            setOpen(i);
+                        if(markers[9]==-1)
+                            setOpen(j);
+                    }
                 break;
             case 0:
-                for (int i = 46, j = 64; i <= 54; i++, j++) {
-                    setOpen(i);
-                    setOpen(j);
-                }
+                if(markers[6]!=-1 && markers[8]!=-1)
+                    openAll();
+                else
+                    for (int i = 46, j = 64; i <= 54; i++, j++) {
+                        if(markers[6]==-1)
+                            setOpen(i);
+                        if(markers[8]==-1)
+                            setOpen(j);
+                    }
                 break;
+        }
+    }
+
+    private void openAll(){
+        for(int i=1;i<=81;i++){
+            int markerid = ((i-1)/9)+1;
+            if(markers[markerid]==-1)
+                setOpen(i);
         }
     }
 

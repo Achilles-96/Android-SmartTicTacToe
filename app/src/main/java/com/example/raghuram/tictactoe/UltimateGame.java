@@ -1,12 +1,15 @@
 package com.example.raghuram.tictactoe;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class UltimateGame extends ActionBarActivity implements View.OnClickListener {
+public class UltimateGame extends Activity implements View.OnClickListener {
 
     private int[] map_of_open_moves = new int[82];
     private int turn = 1;
@@ -21,6 +24,15 @@ public class UltimateGame extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ultimate_game);
+
+        Intent intent = getIntent();
+        int game_mode = intent.getIntExtra("Game mode",0);
+        if(game_mode == 1){
+            findViewById(R.id.lower_tab_1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.lower_tab_2).setVisibility(View.INVISIBLE);
+            ((TextView)findViewById(R.id.top)).setText("Player 1's turn");
+        }
+
         for (int i = 1; i <= 81; i++) {
             setOpen(i);
         }
@@ -42,16 +54,19 @@ public class UltimateGame extends ActionBarActivity implements View.OnClickListe
         }
         if (turn == 1) {
             ((Button) view).setText("X");
+            ((TextView)findViewById(R.id.top)).setText("Player 2's turn");
             turn = 2;
             map_of_open_moves[id] = PLAYER1;
         } else {
             ((Button) view).setText("0");
+            ((TextView)findViewById(R.id.top)).setText("Player 1's turn");
             map_of_open_moves[id] = PLAYER2;
             turn = 1;
         }
         int boardStatus = checkWin();
         Log.d("board status",boardStatus+"");
         if(boardStatus != -1){
+            Toast.makeText(this,"Player " + Integer.toString(boardStatus - 1) + " Won",Toast.LENGTH_SHORT).show();
             game_state = 0;
             return;
         }

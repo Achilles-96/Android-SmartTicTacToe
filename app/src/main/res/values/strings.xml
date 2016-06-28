@@ -6,4 +6,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="normal_mode">Normal mode</string>
     <string name="ultimate_mode">Ultimate mode</string>
+    <string name="single_player">Play against computer</string>
+    <string name="two_players">Two players</string>
 </resources>

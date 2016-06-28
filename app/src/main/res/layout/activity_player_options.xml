@@ -6,12 +6,11 @@
     android:background="@drawable/tic_tac_toe_1440x900"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="7dp"
-    android:paddingLeft="7dp"
-    android:paddingRight="7dp"
-    android:paddingTop="7dp"
-    tools:context="com.example.raghuram.tictactoe.MainActivity"
-    android:padding="7dp">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.raghuram.tictactoe.MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,9 +24,9 @@
             android:layout_margin="3dp"
             android:alpha="0.6"
             android:background="@drawable/mybutton"
-            android:onClick="startNormalGame"
-            android:padding="2dp"
-            android:text="@string/normal_mode" />
+            android:onClick="startSinglePlayer"
+            android:padding="15dp"
+            android:text="@string/single_player" />
 
         <Button
             android:id="@+id/ultimate_mode"
@@ -36,8 +35,8 @@
             android:layout_margin="3dp"
             android:alpha="0.6"
             android:background="@drawable/mybutton"
-            android:onClick="startUltimateGame"
-            android:padding="15dp"
-            android:text="@string/ultimate_mode" />
+            android:onClick="startMultiPlayer"
+            android:padding="2dp"
+            android:text="@string/two_players" />
     </LinearLayout>
 </LinearLayout>

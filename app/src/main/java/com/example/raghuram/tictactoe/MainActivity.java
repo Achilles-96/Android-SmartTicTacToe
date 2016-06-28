@@ -1,11 +1,11 @@
 package com.example.raghuram.tictactoe;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void startUltimateGame(View view) {
-        Intent intent = new Intent(this, UltimateGame.class);
+        Intent intent = new Intent(this, PlayerOptions.class);
         startActivity(intent);
     }
 

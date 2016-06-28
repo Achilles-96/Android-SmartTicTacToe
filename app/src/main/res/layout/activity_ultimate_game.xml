@@ -1130,6 +1130,7 @@
         android:orientation="horizontal"
         android:layout_weight="0.1">
         <Button
+            android:id="@+id/lower_tab_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="I'll Start"
@@ -1141,6 +1142,7 @@
             android:layout_margin="2dp"/>
 
         <Button
+            android:id="@+id/lower_tab_2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="You Start"
